@@ -6,7 +6,7 @@ require("dotenv").config();
 
 exports.addNewUser = async (req, res, next) => {
   const { name, email, password } = req.body;
-//   console.log(name, email, password);
+  //   console.log(name, email, password);
   try {
     // Check if the email is already registered
     let existingUser = await User.findOne({ email: email });
@@ -49,6 +49,7 @@ exports.addNewUser = async (req, res, next) => {
 
 exports.loginUser = async (req, res, next) => {
   const { email, password } = req.body;
+  console.log(email, password);
   try {
     const user = await User.findOne({ email });
     if (user) {
