@@ -33,7 +33,7 @@ export const shortenUrl = (token, obj, toast) => async (dispatch) => {
   } catch (error) {
     console.log(error);
     dispatch({ type: POST_SHORTEN_ERROR });
-    if (error.response.status == 400) {
+    if (error.response.status === 400) {
       toast({
         title: "Alias Already exists, try something else",
         status: "error",

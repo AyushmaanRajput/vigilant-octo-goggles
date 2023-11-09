@@ -12,6 +12,7 @@ import {
   Td,
   TableContainer,
 } from "@chakra-ui/react";
+import { CheckCircleIcon, WarningIcon } from "@chakra-ui/icons";
 
 export const Dashboard = () => {
   const dispatch = useDispatch();
@@ -25,15 +26,16 @@ export const Dashboard = () => {
   }, [token, dispatch, toast]);
 
   return (
-    <Box>
+    <Box p={4}>
       {userUrls.length > 0 ? (
-        <TableContainer>
-          <Table variant="simple">
+        <TableContainer border='1px solid #6663' borderRadius={'xl'}>
+          <Table variant="striped">
             <Thead>
               <Tr>
                 <Th>Original</Th>
-                <Th>Shortened Link</Th>
-                <Th>Expiry</Th>
+                <Th textAlign={"center"}>Shortened Link</Th>
+                <Th textAlign={"center"}>Expiry</Th>
+                <Th textAlign={"center"}>Active</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -41,7 +43,7 @@ export const Dashboard = () => {
                 return (
                   <Tr>
                     <Td>{url.originalUrl.slice(0, 50)}</Td>
-                    <Td>
+                    <Td textAlign={"center"}>
                       <a
                         href={`${process.env.REACT_APP_API_URL}/${url.shortUrl}`}
                         target="_blank"
@@ -52,7 +54,20 @@ export const Dashboard = () => {
                         </Button>
                       </a>
                     </Td>
-                    <Td>{new Date(url.expiresAt).toUTCString()}</Td>
+                    <Td textAlign={"center"}>
+                      {new Date(url.expiresAt).toUTCString()}
+                    </Td>
+                    <Td textAlign={"center"}>
+                      {new Date() > url.expiresAt ? (
+                        <WarningIcon color="red.500" w="1.5rem" h="1.5rem" />
+                      ) : (
+                        <CheckCircleIcon
+                          color="green.500"
+                          w="1.5rem"
+                          h="1.5rem"
+                        />
+                      )}
+                    </Td>
                   </Tr>
                 );
               })}
